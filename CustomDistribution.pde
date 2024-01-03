@@ -1,8 +1,8 @@
 int maxVal = 1;
-int arrSize = 600;
+int arrSize = 600; // change for getting different histogram bar width
 int arr[]=new int[arrSize];
 
-import java.time.LocalDate;
+import java.time.LocalDate; // for saving the screenshots
 
 
 void setup(){
@@ -10,38 +10,21 @@ void setup(){
   background(0);
   frameRate(60);
   
-  for(int i=0;i<arrSize;i++){
-    arr[i]=0;
-  }
 }
 void draw(){
   background(0);
-  fill(255);
   
   int num = customDistribution();
 
   
-  if(num>=0 && num<arrSize){
-    arr[num]++;
-    if(arr[num]>maxVal){maxVal = arr[num];}
-  }
   
+  arr[num]++;
+  if(arr[num]>maxVal){maxVal = arr[num];} // storing the maxVal to scale the longest histogram bar
+  
+  // drawing the histogram
   for(int i=0;i<arrSize;i++){
-    print(arr[i]+" ");
-  }
-  print("\n");
-  
-  print(maxVal+"\n");
-  
-  //highest  = 800;
-  // height = arr[i]/highest*800
-  for(int i=0;i<arrSize;i++){
-    //rect(1200/arrSize*i,800-(arr[i])/maxVal*800,1200/arrSize,(arr[i])/maxVal*800);
     rect(1200/float(arrSize)*i,800-arr[i]/float(maxVal)*800,1200/float(arrSize),arr[i]/float(maxVal)*800);
   }
-  ////rectMode(DOWN);
-  //rect(0,800-400,2,400);
-  //noLoop();
 }
 
 int customDistribution(){
@@ -49,7 +32,7 @@ int customDistribution(){
     float num1 = (float)random(1);
     float num2 = (float)random(1);
     
-    float y=num1*num1*num1*num1*num1*num1*num1*num1*num1*num1*num1;
+    float y=num1*num1; // y = x^2
     
     if(num2<y){
       return int(num1*arrSize);
@@ -57,6 +40,10 @@ int customDistribution(){
   }
   
 }
+
+// screenshot code 
+// Double press "S" for a screenshot
+// the screenshot is saved in an img folder in the directory
 
 int timeOfFirstKey = 0;
 LocalDate dateStamp = LocalDate.now();
